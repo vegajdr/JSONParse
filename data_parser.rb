@@ -13,12 +13,11 @@ class DataParser
 
   def parse!
     @data["users"].each do |i|
-      @users.push(User.new i.values[0], i.values[1], i.values[2])
-      binding.pry
+      @users.push(User.new i["id"], i["name"], i["address"])
+      #binding.pry
     end
     @data["items"].each do |i|
-      @items.push(Item.new i.values[0], i.values[1], i.values[2], i.values[3])
-
+      @items.push(Item.new i["id"], i["name"], i["category"], i["price"])
     end
   end
 
