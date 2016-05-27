@@ -73,12 +73,19 @@ puts "We sold #{items_by_category} items from the Tools category"
 #--Third question -----------
 
 item_prices = {}
+revenue = 0
+totals_list = []
 
 p.items.each do | i |
   item_prices[i.id] = i.price
 end
 
-binding.pry
+t.transaction.each do |t|
+  totals_list.push(t.quantity * item_prices[t.item_id])
+end
 
-puts "Our total revenue was __"
+total = totals_list.reduce(:+).round(2)
+
+puts "Our total revenue was #{total}"
+#--------------------------------------------------------
 puts "The highest grossing category was __"
