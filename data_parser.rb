@@ -17,7 +17,7 @@ class DataParser
       #binding.pry
     end
     @data["items"].each do |i|
-      @items.push(Item.new i["id"], i["name"], i["category"], i["price"])
+      @items.push(Item.new i["id"], i["name"], i["price"], i["category"])
     end
   end
 

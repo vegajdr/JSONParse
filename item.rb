@@ -5,7 +5,7 @@ class Item
   def initialize id, name, price, category = nil
     @id = id
     @name = name
-    @category = category
     @price = price
+    @category = category
   end
 end
