@@ -10,6 +10,7 @@ require "./item"
 require "./user"
 require "./data_parser"
 require "./transaction_parser"
+require "./transaction"
 
 
 class Minitest::Test
@@ -103,7 +104,7 @@ class TransactionParserTests < Minitest::Test
 
     assert_equal 5, p.transaction.count
   end
-  
+
   def test_can_parse_tuesday
     p = TransactionParser.new file_path("tuesday")
     p.parse!

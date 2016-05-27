@@ -9,9 +9,10 @@ attr_reader :transaction
   end
 
   def parse!
-    @data.each do |t|
-      @transaction.push t
+    @data.each do |i|
+      @transaction.push(Transaction.new i["timestamp"], i["user_id"], i["item_id"], i["quantity"])
     end
+
 
   end
 
