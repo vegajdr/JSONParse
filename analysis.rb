@@ -81,11 +81,55 @@ p.items.each do | i |
 end
 
 t.transaction.each do |t|
-  totals_list.push(t.quantity * item_prices[t.item_id])
+  totals_list.push((t.quantity) * (item_prices[t.item_id]))
 end
 
 total = totals_list.reduce(:+).round(2)
 
 puts "Our total revenue was #{total}"
-#--------------------------------------------------------
+# -------------------
+
+categorydb = []
+category_ids = {}
+category_totals = {}
+
+p.items.each do |t|
+  categorydb.push(t.category.split(" & "))
+end
+
+categories = categorydb.flatten.uniq
+
+categories.each do |c|
+  category_ids[c] = []
+  category_totals[c] = 0
+end
+
+p.items.each do |i|
+  category_ids.each do | category, ids|
+    if i.category.include?(category)
+      category_ids[category].push(i.id)
+    end
+  end
+end
+
+category_ids.each do | category, array |
+  array.each do | id |
+    t.transaction.each do | transaction |
+      if category_ids[category].include? transaction.item_id
+        category_totals[category] += item_prices[transaction.item_id] * transaction.quantity
+        binding.pry
+      end
+
+      #binding.pry
+    end
+
+  end
+
+end
+
+
+binding.pry
+
+
+
 puts "The highest grossing category was __"
