@@ -117,19 +117,15 @@ category_ids.each do | category, array |
     t.transaction.each do | transaction |
       if category_ids[category].include? transaction.item_id
         category_totals[category] += item_prices[transaction.item_id] * transaction.quantity
-        binding.pry
       end
-
-      #binding.pry
     end
-
   end
-
 end
 
+category_max = (category_totals.max_by { |category, totals| totals }).first
 
-binding.pry
+#binding.pry
 
 
 
-puts "The highest grossing category was __"
+puts "The highest grossing category was #{category_max}"
