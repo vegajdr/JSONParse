@@ -27,8 +27,8 @@ end
 
 
 max = orders_by_user.max_by do |user, order|
-          order
-      end
+  order
+end
 
 user_most_orders = ""
 p.users.each do |u|
@@ -119,17 +119,18 @@ end
 
 
 category_ids.each do | category, array |
-    t.transaction.each do | transaction |
-      if category_ids[category].include? transaction.item_id
-        category_totals[category] += item_prices[transaction.item_id] * transaction.quantity
-        #binding.pry
-      end
+  t.transaction.each do | transaction |
+    if category_ids[category].include? transaction.item_id
+      category_totals[category] += item_prices[transaction.item_id] * transaction.quantity
+      #binding.pry
     end
+  end
+  #end
 end
 
 category_max = (category_totals.max_by { |category, totals| totals }).first
 
-binding.pry
+#binding.pry
 
 
 
