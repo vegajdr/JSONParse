@@ -39,9 +39,8 @@ end
 
 puts "The user that made the most orders was #{user_most_orders}"
 
-#binding.pry
 
-#------------------------------------------------------------------
+#  Second question ------------------------------------------------------------------
 
 number_of_lamps = 0
 item_id = 8
@@ -55,7 +54,7 @@ end
 
 puts "We sold #{number_of_lamps} Ergonomic Rubber Lamps"
 
-#--Second question -----------------
+#--Third question -----------------
 tool_ids = []
 items_by_category = 0
 
@@ -73,7 +72,7 @@ end
 
 puts "We sold #{items_by_category} items from the Tools category"
 
-#--Third question -----------
+#  Fourth question ---------------------------------
 
 item_prices = {}
 revenue = 0
@@ -90,7 +89,7 @@ end
 total = totals_list.reduce(:+).round(2)
 
 puts "Our total revenue was #{total}"
-# -------------------
+#  Fifth question ----------------------------------
 
 categorydb = []
 category_ids = {}
@@ -129,9 +128,6 @@ category_ids.each do | category, array |
 end
 
 category_max = (category_totals.max_by { |category, totals| totals }).first
-
-#binding.pry
-
 
 
 puts "The highest grossing category was #{category_max}"
