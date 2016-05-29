@@ -16,12 +16,15 @@ t.parse!
 
 #  First question -----------------------------------------
 
+
 orders_by_user = {}
 orders_by_user.default = 0
+
 
 t.transaction.each do | t |
   orders_by_user[t.user_id] += 1
 end
+
 
 max = orders_by_user.max_by do |user, order|
           order
@@ -99,10 +102,12 @@ end
 
 categories = categorydb.flatten.uniq
 
+
 categories.each do |c|
   category_ids[c] = []
   category_totals[c] = 0
 end
+
 
 p.items.each do |i|
   category_ids.each do | category, ids|
@@ -112,19 +117,19 @@ p.items.each do |i|
   end
 end
 
+
 category_ids.each do | category, array |
-  array.each do | id |
     t.transaction.each do | transaction |
       if category_ids[category].include? transaction.item_id
         category_totals[category] += item_prices[transaction.item_id] * transaction.quantity
+        #binding.pry
       end
     end
-  end
 end
 
 category_max = (category_totals.max_by { |category, totals| totals }).first
 
-#binding.pry
+binding.pry
 
 
 
