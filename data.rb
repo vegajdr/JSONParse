@@ -1,19 +1,28 @@
-require 'pry'
-require 'json'
+require "httparty"
+require "pry"
 require "./item"
 require "./user"
 require "./data_parser"
 require "./transaction"
 require "./transaction_parser"
+require "./password"
 
 
-p = DataParser.new ("/Users/vega/Desktop/tiyprojects/week2/day_4/shoppe/data/data.json")
+db = HTTParty.get( "https://shopnatra.herokuapp.com/data",
+  query: Password
+
+)
+
+transactions = HTTParty.get( "https://shopnatra.herokuapp.com/transactions/2001-01-01",
+  query: Password
+
+)
+
+p = DataParser.new db
+t = TransactionParser.new transactions
+
 p.parse!
-
-
-t = TransactionParser.new ("/Users/vega/Desktop/tiyprojects/week2/day_4/shoppe/data/transactions.json")
 t.parse!
-
 #  First question -----------------------------------------
 
 
@@ -24,7 +33,7 @@ orders_by_user.default = 0
 t.transaction.each do | t |
   orders_by_user[t.user_id] += 1
 end
-binding.pry
+#binding.pry
 
 max = orders_by_user.max_by do |user, order|
   order
@@ -43,17 +52,23 @@ puts "The user that made the most orders was #{user_most_orders}"
 
 #  Second question ------------------------------------------------------------------
 
-number_of_lamps = 0
-item_id = 8
 
-t.transaction.each do | t |
-  if t.item_id == item_id
-    number_of_lamps += t.quantity
+selected_item = p.items.find do |i|
+  i.name == "Ergonomic Rubber Lamps"
+end
+total = 0
+t.transaction.each do |t|
+  if t.item_id == selected_item.id
+    total += t.quantity
   end
-
 end
 
-puts "We sold #{number_of_lamps} Ergonomic Rubber Lamps"
+total2 = t.transaction.
+  select { |t| t.item_id == selected_item.id }.
+  map { |t| t.quantity }.
+  reduce :+
+
+puts "We sold #{total2} Ergonomic Rubber Lamps"
 
 #--Third question -----------------
 tool_ids = []
@@ -129,5 +144,9 @@ end
 
 category_max = (category_totals.max_by { |category, totals| totals }).first
 
+binding.pry
 
 puts "The highest grossing category was #{category_max}"
+
+#binding.pry
+#puts db
