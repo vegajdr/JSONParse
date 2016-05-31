@@ -2,9 +2,9 @@ class TransactionParser
 
 attr_reader :transaction
 
-  def initialize path
-    @path = path
-    @data = JSON.parse(File.read path)
+  def initialize data
+    # @path = path
+    @data = data
     @transaction = []
   end
 

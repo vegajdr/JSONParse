@@ -1,9 +1,9 @@
 class DataParser
   attr_reader :path, :users, :items
 
-  def initialize path
-    @path = path
-    @data = JSON.parse(File.read path)
+  def initialize data
+    # @path = path
+    @data = data
 
 
     @users = []

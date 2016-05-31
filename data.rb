@@ -56,19 +56,25 @@ puts "The user that made the most orders was #{user_most_orders}"
 selected_item = p.items.find do |i|
   i.name == "Ergonomic Rubber Lamps"
 end
+# total = 0
+# t.transaction.each do |t|
+#   if t.item_id == selected_item.id
+#     total += t.quantity
+#   end
+# end
+#binding.pry
 total = 0
-t.transaction.each do |t|
-  if t.item_id == selected_item.id
-    total += t.quantity
-  end
-end
 
-total2 = t.transaction.
+if selected_item == nil
+  total = 0
+else
+  total = t.transaction.
   select { |t| t.item_id == selected_item.id }.
   map { |t| t.quantity }.
   reduce :+
+end
 
-puts "We sold #{total2} Ergonomic Rubber Lamps"
+puts "We sold #{total} Ergonomic Rubber Lamps"
 
 #--Third question -----------------
 tool_ids = []
@@ -144,7 +150,7 @@ end
 
 category_max = (category_totals.max_by { |category, totals| totals }).first
 
-binding.pry
+#binding.pry
 
 puts "The highest grossing category was #{category_max}"
 
